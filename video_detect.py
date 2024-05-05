@@ -21,7 +21,8 @@ while video.isOpened():
                 hour, minute, second = current.hour, current.minute, current.second
                 im_array = results[0].plot()
                 im = Image.fromarray(im_array[..., ::-1])
-                img_url = f"/warnimg{current_date}_{hour}_{minute}_{second}.jpg"
+                filename = f"warnimg{current_date}_{hour}_{minute}_{second}.jpg"
+                img_url = f"./imgs/{filename}"
                 im.save(img_url)  # save image
 
                 for j in range(results[0].boxes.shape[0]):
@@ -31,7 +32,7 @@ while video.isOpened():
                     warn_type = results[0].names[index]
 
                     data = {
-                        "img_url": img_url,
+                        "img_url": filename,
                         "warn_type": warn_type,
                         "centerX": str((center[0].numpy().tolist())),
                         "centerY": str((center[1].numpy().tolist())),
